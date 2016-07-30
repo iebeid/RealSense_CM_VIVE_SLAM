@@ -1,0 +1,41 @@
+Notes on CM
+ It seems that there is no support for depth 32 float format
+ It seems like using buffer or surface up with zero copy with video streams is not working for some reason
+ The gaussian blur example is so slow on the video stream
+ I cannot pass a pointer to an array in the kernel function
+ Is CmProgram and CmKernel implemented as singletons
+Write surface only reads unsigned char
+
+ How to detect a plane from points
+http://www.ilikebigbits.com/blog/2015/3/2/plane-from-points
+http://stackoverflow.com/questions/18591964/how-to-calculate-centroid-of-an-arraylist-of-points
+
+
+
+How to implement a bialteral filter in CPU
+		//Bilateral Filter
+		float sum_h = 0;
+		float sum_normalize = 0;
+		for (int k1 = 0; k1 < WINDOW; k1++){
+			for (int k2 = 0; k2 < WINDOW; k2++){
+				float current_e_intesity = dpixels[(j + k1) * dpitch + (i + k2)];
+				double weight = exp(((-1 / (2 * SIGMA_INTESNSITY*SIGMA_INTESNSITY))*(pow(i - k2, 2) + pow(j - k1, 2))) - ((-1 / (2 * SIGMA_SPACIAL*SIGMA_SPACIAL))*(dpixels[(j)* dpitch + (i)] - dpixels[(k1)* dpitch + (k2)])));
+				sum_h = sum_h + (current_e_intesity*(float)weight);
+				sum_normalize = sum_normalize + (float)weight;
+			}
+		}
+		float sum = sum_h / sum_normalize;
+		data[idx] = sum;
+		//
+
+
+How to implement dynamic camera prespective in opengl
+Tracked Camera Render
+float mul = 0.25;
+glTranslatef((-(camera_position.x / windowWidth * 2) + 1) * mul, ((camera_position.y / windowHeight * 2) - 1) * mul, camera_position.z);
+
+glm::quat q(camera_rotation.x, camera_rotation.y, camera_rotation.z, camera_rotation.w);
+glm::vec3 angles = glm::eulerAngles(q);
+glRotatef(camera_rotation.x, 1.0, 0.0, 0.0);
+glRotatef(camera_rotation.y, 0.0, 1.0, 0.0);
+glRotatef(camera_rotation.z, 0.0, 0.0, 1.0);
