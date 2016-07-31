@@ -1,3 +1,5 @@
+#include "CmUtils.h"
+
 #include "RealSenseUtils.h"
 
 PXCCapture::Device* real_sense_info(PXCCaptureManager *pCaptureManager){

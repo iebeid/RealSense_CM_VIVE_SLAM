@@ -1,4 +1,19 @@
+
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+
+#include <pxcsensemanager.h>
+
+#include "Matrix.h"
+
 #include "Camera.h"
+
+#define PI 3.14159265358
+
+using namespace std;
+
 
 void Camera::set_rotation(float * rotation){
 	this->rotation = rotation;

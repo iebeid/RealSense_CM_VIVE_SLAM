@@ -1,19 +1,15 @@
-#pragma once
+#ifndef POINT_CLOUD_H
+#define POINT_CLOUD_H 1
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-
 #undef APIENTRY
-
-#include <memory>
-#include <vector>
-#include <iostream>
-#include <vector>
-
-#include <pxcsensemanager.h>
 
 #include "Matrix.h"
 #include "CmUtils.h"
+#include <pxcsensemanager.h>
+
+
 
 using namespace std;
 
@@ -62,3 +58,4 @@ public:
 struct GlobalMap{
 	vector<PointCloud> point_clouds;
 };
+#endif

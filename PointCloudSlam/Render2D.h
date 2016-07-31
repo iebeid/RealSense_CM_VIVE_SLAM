@@ -1,10 +1,10 @@
-#pragma once
+#ifndef RENDER_2D_H
+#define RENDER_2D_H 1
 
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include <iostream>
 
 using namespace std;
 
@@ -16,3 +16,4 @@ void render_window(const GLvoid * image, int width, int height, GLFWwindow* wind
 
 void terminate_window(GLFWwindow* window);
 
+#endif

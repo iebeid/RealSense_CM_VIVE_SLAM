@@ -1,13 +1,10 @@
-#pragma once
+#ifndef RENDER_3D_H
+#define RENDER_3D_H 1
 
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include <time.h>
-
-#include <iostream>
-#include <cmath>
 
 #include "Camera.h"
 #include "PointCloud.h"
@@ -27,3 +24,4 @@ void show_map(GLFWwindow* window, int n, GLfloat *vertices, GLfloat *colors);
 void show_points(GLFWwindow* window, GlobalMap s, Camera camera, Camera realsense);
 
 int terminate_point_renderer(GLFWwindow* window);
+#endif

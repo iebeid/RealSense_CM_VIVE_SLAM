@@ -18,7 +18,7 @@ matrix; if not, write to the Free Software Foundation, Inc., 51 Franklin
 Street, Fifth Floor, Boston, MA 02110-1301, USA
 */
 
-#include "matrix.h"
+#include "Matrix.h"
 #include <math.h>
 
 #define SWAP(a,b) {temp=a;a=b;b=temp;}
@@ -591,8 +591,9 @@ void Matrix::svd(Matrix &U2, Matrix &W, Matrix &V) {
 	V = Matrix(n, n);
 
 	double* w = (double*)malloc(n*sizeof(double));
+	memset(w, 0, n*sizeof(double));
 	double* rv1 = (double*)malloc(n*sizeof(double));
-
+	memset(rv1, 0, n*sizeof(double));
 	int32_t flag, i, its, j, jj, k, l, nm;
 	double   anorm, c, f, g, h, s, scale, x, y, z;
 

@@ -1,5 +1,5 @@
-#pragma once
-
+#ifndef MATRIX_H
+#define MATRIX_H 1
 
 #include <stdio.h>
 #include <string.h>
@@ -170,3 +170,4 @@ private:
 	inline double pythag(double a, double b);
 
 };
+#endif

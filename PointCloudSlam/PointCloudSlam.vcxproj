@@ -106,7 +106,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
@@ -146,6 +146,8 @@ SET INCLUDE=%ICLDIR%\include;%INCLUDE%
     <ClCompile Include="Render2D.cpp" />
     <ClCompile Include="Render3D.cpp" />
     <ClCompile Include="RenderHMD.cpp" />
+    <None Include="min.pix" />
+    <None Include="min.vrt" />
     <None Include="slam_genx.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </None>
@@ -166,6 +168,10 @@ SET INCLUDE=%ICLDIR%\include;%INCLUDE%
   </ItemGroup>
   <ItemGroup>
     <Text Include="Notes.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="color.bmp" />
+    <Image Include="opengl-64x64.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

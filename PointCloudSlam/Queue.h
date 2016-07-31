@@ -1,6 +1,5 @@
-#pragma once
-
-
+#ifndef QUEUE_H
+#define QUEUE_H
 #include <queue>
 #include <thread>
 #include <mutex>
@@ -56,3 +55,4 @@ private:
 	std::mutex mutex_;
 	std::condition_variable cond_;
 };
+#endif

@@ -1,3 +1,8 @@
+#include <time.h>
+
+#include <iostream>
+#include <cmath>
+
 #include "Render3D.h"
 
 float trans_z = -1.0f;
@@ -32,26 +37,25 @@ line_vertex g_lineVertices_realsense[] =
 	{ 255, 0, 0, 255, 0.0f, 0.0f, 0.2f }
 };
 
-GLFWwindow* initWindow(const int resX, const int resY, int pos_x, int pos_y, const char * title)
+
+
+GLFWwindow* initWindow(const int width, const int height, int pos_x, int pos_y, const char * title)
 {
-	if (!glfwInit())
-	{
-		fprintf(stderr, "Failed to initialize GLFW\n");
-		return NULL;
-	}
-	glfwWindowHint(GLFW_SAMPLES, 4);
-	GLFWwindow* window = glfwCreateWindow(resX, resY, title, NULL, NULL);
-	if (window == NULL)
-	{
-		fprintf(stderr, "Failed to open GLFW window.\n");
-		glfwTerminate();
-		return NULL;
-	}
+	GLFWwindow* window;
+	const GLubyte* renderer;
+	const GLubyte* version;
+	glfwInit();
+	
+	window = glfwCreateWindow(width, height, title, NULL, NULL);
 	glfwMakeContextCurrent(window);
 	glfwSetWindowPos(window, pos_x, pos_y);
+	glewExperimental = GL_TRUE;
+	glewInit();
+	renderer = glGetString(GL_RENDERER);
+	version = glGetString(GL_VERSION);
+	printf("Renderer: %s\n", renderer);
+	printf("OpenGL version supported %s\n", version);
 
-	printf("Renderer: %s\n", glGetString(GL_RENDERER));
-	printf("OpenGL version supported %s\n", glGetString(GL_VERSION));
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
 	glDisable(GL_CULL_FACE);

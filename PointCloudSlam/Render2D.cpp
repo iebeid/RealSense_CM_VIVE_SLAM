@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "Render2D.h"
 
 GLuint vao;

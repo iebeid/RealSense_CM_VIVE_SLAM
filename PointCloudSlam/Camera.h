@@ -1,17 +1,5 @@
-#pragma once
-
-
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <vector>
-#include <pxcsensemanager.h>
-#include "Matrix.h"
-
-#define PI 3.14159265358
-
-using namespace std;
-
+#ifndef CAMERA_H
+#define CAMERA_H 1
 class Camera{
 public:
 	Camera(int w, int h) :width(w), height(h){
@@ -32,3 +20,4 @@ private:
 	float * position;
 
 };
+#endif

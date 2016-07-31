@@ -1,4 +1,6 @@
-#pragma once
+#ifndef FPS_H
+#define FPS_H 1
+
 #include <ctime>
 #include <iostream>
 
@@ -18,3 +20,5 @@ private:
 	std::clock_t start;
 	float timepassed;
 };
+
+#endif

@@ -1,15 +1,7 @@
-#pragma once
-
-#include "PointCloud.h"
-#include "Queue.h"
-#include "RealSenseUtils.h"
-#include "CmUtils.h"
-#include "Render2D.h"
-#include "Render3D.h"
-#include "FPS.h"
-
-#include <thread>
-
+#ifndef APP_H
+#define APP_H 1
+#include <pxcsensemanager.h>
+#include <cm_rt.h>
 class App{
 public:
 	static App& getInstance()
@@ -32,3 +24,4 @@ public:
 	void operator=(App const&) = delete;
 	
 };
+#endif

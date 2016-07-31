@@ -2,6 +2,7 @@
 #include "CmUtils.h"
 #include "RealSenseUtils.h"
 #include "App.h"
+#include "RenderHMD.h"
 using namespace std;
 
 int main(int argc, char argv[]) {
@@ -19,6 +20,8 @@ int main(int argc, char argv[]) {
 	
 	App::getInstance().run(width, height, 4, projection,
 		sense_manager, device, session, cm_device, program);
+
+	render_hmd();
 
 	return 0;
 }

@@ -102,5 +102,19 @@
     <None Include="slam_genx.cpp">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="min.pix">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="min.vrt">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="color.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="opengl-64x64.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
