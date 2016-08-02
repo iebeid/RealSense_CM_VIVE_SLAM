@@ -31,7 +31,26 @@ float * Camera::get_position(){
 	return this->position;
 }
 
-float * Camera::get_rot_matrix(float angle_x, float angle_y, float angle_z){
+float * Camera::get_rotation_matrix_glm(float angle_x, float angle_y, float angle_z){
+	float * rot = new float[9];
+	glm::mat3 rotation_matrix = glm::mat3();
+	glm::mat3 rotation_x(1, 0, 0, 0, cos((angle_x*PI) / 180), -sin((angle_x*PI) / 180), 0, sin((angle_x*PI) / 180), cos((angle_x*PI) / 180));
+	glm::mat3 rotation_y(cos((angle_y*PI) / 180), 0, sin((angle_y*PI) / 180), 0, 1, 0, -sin((angle_y*PI) / 180), 0, cos((angle_y*PI) / 180));
+	glm::mat3 rotation_z(cos((angle_z*PI) / 180), -sin((angle_z*PI) / 180), 0, sin((angle_z*PI) / 180), cos((angle_z*PI) / 180), 0, 0, 0, 1);
+	rotation_matrix = rotation_z * rotation_y * rotation_x;
+	rot[0] = rotation_matrix[0][0];
+	rot[1] = rotation_matrix[1][0];
+	rot[2] = rotation_matrix[2][0];
+	rot[3] = rotation_matrix[0][1];
+	rot[4] = rotation_matrix[2][2];
+	rot[5] = rotation_matrix[2][1];
+	rot[6] = rotation_matrix[0][2];
+	rot[7] = rotation_matrix[1][2];
+	rot[8] = rotation_matrix[1][1];
+	return rot;
+}
+
+float * Camera::get_rotation_matrix(float angle_x, float angle_y, float angle_z){
 	float * rot = new float[9];
 
 	Matrix rotation_x(3, 3);

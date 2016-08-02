@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "PointCloud.h"
+#include <glm/glm.hpp>
 
 PointCloud::PointCloud(PXCImage * mapped_color_to_depth, PXCImage * depth, PXCProjection * projection, short low_confidence, int point_cloud_resolution){
 
@@ -120,6 +121,32 @@ Render PointCloud::get_rendering_structures(){
 		t = t + 3;
 	}
 	return rs;
+}
+
+PointCloud PointCloud::transform_glm(PointCloud mo, Transformation trans){
+	PointCloud transformed;
+	glm::vec3 translation = glm::vec3((float)trans.t.val[0][0], (float)trans.t.val[1][0], (float)trans.t.val[2][0]);
+	glm::mat3 rot_mat = glm::mat3(trans.R.val[0][0], trans.R.val[0][1], trans.R.val[0][2], trans.R.val[1][0], trans.R.val[1][1], trans.R.val[1][2], trans.R.val[2][0], trans.R.val[2][1], trans.R.val[2][2]);
+	for (int i = 0; i < mo.points.size(); i++){
+		glm::vec3 vertex(mo.points[i].position.x, mo.points[i].position.y, mo.points[i].position.z);
+		glm::vec3 normal(mo.points[i].normal_vector.x, mo.points[i].normal_vector.y, mo.points[i].normal_vector.z);
+		glm::vec3 new_vertex_vector = rot_mat * vertex + translation;
+		glm::vec3 new_normal_vector = rot_mat * normal + translation;
+		Point p;
+		p.position.x = new_vertex_vector.x;
+		p.position.y = new_vertex_vector.y;
+		p.position.z = new_vertex_vector.z;
+		p.normal_vector.x = new_normal_vector.x;
+		p.normal_vector.y = new_normal_vector.y;
+		p.normal_vector.z = new_normal_vector.z;
+		PXCColor c = mo.points[i].color;
+		p.color.red = c.red;
+		p.color.green = c.green;
+		p.color.blue = c.blue;
+		p.distance_from_origin = sqrt(pow(p.position.x, 2) + pow(p.position.y, 2) + pow(p.position.z, 2));
+		transformed.points.push_back(p);
+	}
+	return transformed;
 }
 
 void PointCloud::transform(PointCloud mo, Transformation trans){

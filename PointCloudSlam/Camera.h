@@ -1,5 +1,6 @@
 #ifndef CAMERA_H
 #define CAMERA_H 1
+#include <glm\glm.hpp>
 class Camera{
 public:
 	Camera(int w, int h) :width(w), height(h){
@@ -11,7 +12,8 @@ public:
 	void set_position(float * position);
 	float * get_rotation();
 	float * get_position();
-	float * Camera::get_rot_matrix(float angle_x, float angle_y, float angle_z);
+	float * get_rotation_matrix_glm(float angle_x, float angle_y, float angle_z);
+	float * get_rotation_matrix(float angle_x, float angle_y, float angle_z);
 
 private:
 	int width;

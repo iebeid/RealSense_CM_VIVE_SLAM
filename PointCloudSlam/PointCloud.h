@@ -47,6 +47,7 @@ public:
 	~PointCloud(){ ; }
 
 	void transform(PointCloud mo, Transformation trans);
+	PointCloud transform_glm(PointCloud mo, Transformation trans);
 	Render get_rendering_structures();
 	Transformation align_point_cloud(CmDevice* cm_device, CmProgram* program, PointCloud mod, int number_of_points, Matrix *R, Matrix *t);
 
