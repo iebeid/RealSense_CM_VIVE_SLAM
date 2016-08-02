@@ -37,6 +37,7 @@ PXCSenseManager* init_real_sense(int width, int height, PXCProjection** projecti
 	PXCSenseManager *sense_manager = current_session->CreateSenseManager();
 	sense_manager->EnableStream(PXCCapture::STREAM_TYPE_COLOR, width, height, 60);
 	sense_manager->EnableStream(PXCCapture::STREAM_TYPE_DEPTH, width, height, 60);
+	sense_manager->EnableScenePerception();
 	sense_manager->Init();
 	PXCCaptureManager *capture_manager = sense_manager->QueryCaptureManager();
 	PXCCapture::Device* current_device = real_sense_info(capture_manager);

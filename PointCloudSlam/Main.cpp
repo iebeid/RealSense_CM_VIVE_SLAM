@@ -2,13 +2,15 @@
 #include "CmUtils.h"
 #include "RealSenseUtils.h"
 #include "App.h"
-#include "RenderHMD.h"
+
 using namespace std;
 
 int main(int argc, char argv[]) {
-	cout << "Initialize CM" << endl;
-	CmDevice* cm_device = create_device();
-	CmProgram* program = load_kernel_program(cm_device, "slam_genx.isa");
+	//cout << "Initialize CM" << endl;
+	//CmDevice* cm_device = create_device();
+	//CmProgram* program = load_kernel_program(cm_device, "slam_genx.isa");
+	CmDevice* cm_device = NULL;
+	CmProgram* program = NULL;
 	int width = 320;
 	int height = 240;
 	
@@ -21,7 +23,7 @@ int main(int argc, char argv[]) {
 	App::getInstance().run(width, height, 4, projection,
 		sense_manager, device, session, cm_device, program);
 
-	render_hmd();
+	
 
 	return 0;
 }

@@ -3,8 +3,6 @@
 #include <iostream>
 #include <vector>
 
-#include "ICP.h"
-
 #include "PointCloud.h"
 
 PointCloud::PointCloud(PXCImage * mapped_color_to_depth, PXCImage * depth, PXCProjection * projection, short low_confidence, int point_cloud_resolution){
@@ -170,8 +168,7 @@ void PointCloud::transform(PointCloud mo, Transformation trans){
 
 Transformation PointCloud::align_point_cloud(CmDevice* cm_device, CmProgram* program, PointCloud mod, int number_of_points, Matrix *R, Matrix *t){
 	PointCloud current(this->points);
-	ICP icp;
-	icp.fit(cm_device, program, current, mod, number_of_points, *R, *t);
+	
 
 	Transformation f;
 	f.R = *R;

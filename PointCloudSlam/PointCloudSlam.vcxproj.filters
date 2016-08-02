@@ -51,9 +51,6 @@
     <ClCompile Include="FPS.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ICP.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CmUtils.h">
@@ -89,9 +86,6 @@
     <ClInclude Include="FPS.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ICP.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Notes.txt">
@@ -111,9 +105,6 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="color.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="opengl-64x64.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

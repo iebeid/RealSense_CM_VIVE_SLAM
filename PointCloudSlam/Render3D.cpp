@@ -140,7 +140,6 @@ void show_points(GLFWwindow* window, GlobalMap s, Camera camera, Camera realsens
 		glRotatef(angle_y_realsense, 0.0f, 1.0f, 0.0f);
 		glRotatef(angle_z_realsense, 0.0f, 0.0f, 1.0f);
 
-
 		glInterleavedArrays(GL_C4UB_V3F, 0, g_lineVertices_realsense);
 		glDrawArrays(GL_LINES, 0, 6);
 
