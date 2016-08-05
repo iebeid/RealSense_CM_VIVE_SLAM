@@ -110,15 +110,15 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\Islam\Documents\Dev\vrpn\include;C:\Users\Islam\Documents\Dev\glm\include;C:\Users\Islam\Documents\Dev\glext\include;C:\Users\Islam\Documents\Dev\openvr\headers;C:\Program Files (x86)\Intel\RSSDK\include;C:\Users\Islam\Documents\Dev\glfw\include;C:\Users\Islam\Documents\Dev\glew\include;C:\Intel\MDF_6\runtime\include;C:\Intel\MDF_6\compiler\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Islam\Documents\Dev\vrpn\include;C:\Users\Islam\Documents\Dev\glm\include;C:\Users\Islam\Documents\Dev\glext\include;C:\Users\Islam\Documents\Dev\openvr\headers;C:\Program Files (x86)\Intel\RSSDK\sample\common\include;C:\Program Files (x86)\Intel\RSSDK\include;C:\Users\Islam\Documents\Dev\glfw\include;C:\Users\Islam\Documents\Dev\glew\include;C:\Intel\MDF_6\runtime\include;C:\Intel\MDF_6\compiler\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\Users\Islam\Documents\Dev\vrpn\lib;C:\Users\Islam\Documents\Dev\glext\lib;C:\Users\Islam\Documents\Dev\openvr\lib\win64;C:\Program Files (x86)\Intel\RSSDK\lib\x64;C:\Users\Islam\Documents\Dev\glew\lib;C:\Users\Islam\Documents\Dev\glfw\lib-vc2013;C:\Intel\MDF_6\compiler\lib\x64;C:\Intel\MDF_6\runtime\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;igfxcmrt64.lib;igfxcmjit64.lib;libcm.lib;glew32.lib;glew32mx.lib;glfw3.lib;glext.lib;libpxc.lib;openvr_api.lib;vrpnserver.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Islam\Documents\Dev\vrpn\lib;C:\Users\Islam\Documents\Dev\glext\lib;C:\Users\Islam\Documents\Dev\openvr\lib\win64;C:\Program Files (x86)\Intel\RSSDK\sample\common\lib\x64\v120;C:\Program Files (x86)\Intel\RSSDK\lib\x64;C:\Users\Islam\Documents\Dev\glew\lib;C:\Users\Islam\Documents\Dev\glfw\lib-vc2013;C:\Intel\MDF_6\compiler\lib\x64;C:\Intel\MDF_6\runtime\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;igfxcmrt64.lib;igfxcmjit64.lib;libcm.lib;glew32.lib;glew32mx.lib;glfw3.lib;glext.lib;libpxc.lib;libpxcutils.lib;openvr_api.lib;vrpnserver.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>LIBCMT</IgnoreSpecificDefaultLibraries>
     </Link>
     <PreBuildEvent>

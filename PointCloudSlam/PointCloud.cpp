@@ -6,23 +6,23 @@
 #include "PointCloud.h"
 #include <glm/glm.hpp>
 
-PointCloud::PointCloud(PXCImage * mapped_color_to_depth, PXCImage * depth, PXCProjection * projection, short low_confidence, int point_cloud_resolution){
+PointCloud::~PointCloud(){
+	points.clear();
+	points.shrink_to_fit();
+}
 
-	PXCImage *depth_image = depth;
-	PXCImage::ImageInfo depth_info = depth_image->QueryInfo();
+PointCloud::PointCloud(PXCImage * rgb_frame, PXCImage * depth_frame, PXCImage * mapped_rgb_frame, PXCSenseManager * sense_manager, PXCProjection * projection, int depth_threshold, int point_cloud_resolution){
+	PXCImage::ImageInfo depth_info = depth_frame->QueryInfo();
 	PXCImage::ImageData depth_data;
-	depth_image->AcquireAccess(PXCImage::ACCESS_READ, PXCImage::PIXEL_FORMAT_DEPTH, &depth_data);
+	depth_frame->AcquireAccess(PXCImage::ACCESS_READ, PXCImage::PIXEL_FORMAT_DEPTH, &depth_data);
 	short *dpixels = (short*)depth_data.planes[0];
-	depth_image->ReleaseAccess(&depth_data);
-
-	PXCImage::ImageInfo mapped_info = mapped_color_to_depth->QueryInfo();
+	depth_frame->ReleaseAccess(&depth_data);
+	PXCImage::ImageInfo mapped_info = mapped_rgb_frame->QueryInfo();
 	PXCImage::ImageData mapped_data;
-	mapped_color_to_depth->AcquireAccess(PXCImage::ACCESS_READ, PXCImage::PIXEL_FORMAT_RGB32, &mapped_data);
+	mapped_rgb_frame->AcquireAccess(PXCImage::ACCESS_READ, PXCImage::PIXEL_FORMAT_RGB32, &mapped_data);
 	pxcBYTE * mpixels = mapped_data.planes[0];
 	int mpitch = mapped_data.pitches[0];
-	mapped_color_to_depth->ReleaseAccess(&mapped_data);
-
-
+	mapped_rgb_frame->ReleaseAccess(&mapped_data);
 	int res_height = depth_info.height;
 	int res_width = depth_info.width;
 	int number_of_elements_pushed = 0;
@@ -39,10 +39,10 @@ PointCloud::PointCloud(PXCImage * mapped_color_to_depth, PXCImage * depth, PXCPr
 			uvzpoint.x = (pxcF32)u;
 			uvzpoint.y = (pxcF32)v;
 			uvzpoint.z = depth_value;
-			if (depth_value < 1500 && depth_value > low_confidence){
+			if (depth_value < depth_threshold){
 				projection->ProjectDepthToCamera(1, &uvzpoint, &xyzpoint);
 				xyzpoint.x = -xyzpoint.x / 1000;
-				xyzpoint.y = -xyzpoint.y / 1000;
+				xyzpoint.y = xyzpoint.y / 1000;
 				xyzpoint.z = xyzpoint.z / 1000;
 				color.red = red;
 				color.blue = blue;
@@ -60,14 +60,12 @@ PointCloud::PointCloud(PXCImage * mapped_color_to_depth, PXCImage * depth, PXCPr
 				horizontal_neighbor_uvz.y = (pxcF32)v;
 				horizontal_neighbor_uvz.z = dpixels[(v*res_width + (u + 1))];
 				projection->ProjectDepthToCamera(1, &horizontal_neighbor_uvz, &horizontal_neighbor_xyz);
-
 				PXCPoint3DF32 vertical_neighbor_uvz;
 				PXCPoint3DF32 vertical_neighbor_xyz;
 				vertical_neighbor_uvz.x = (pxcF32)u;
 				vertical_neighbor_uvz.y = (pxcF32)v + 1;
 				vertical_neighbor_uvz.z = dpixels[((v + 1)*res_width + u)];
 				projection->ProjectDepthToCamera(1, &vertical_neighbor_uvz, &vertical_neighbor_xyz);
-
 				vector3f current_point;
 				current_point.x = xyzpoint.x;
 				current_point.y = xyzpoint.y;
@@ -80,15 +78,16 @@ PointCloud::PointCloud(PXCImage * mapped_color_to_depth, PXCImage * depth, PXCPr
 				vertical_point.x = vertical_neighbor_xyz.x;
 				vertical_point.y = vertical_neighbor_xyz.y;
 				vertical_point.z = vertical_neighbor_xyz.z;
-
 				vector3f horizontal_difference = vector3f::subtract(horizontal_point, current_point);
 				vector3f vertical_difference = vector3f::subtract(vertical_point, current_point);
-
 				vector3f normal_vector = vector3f::normalize(vector3f::cross(horizontal_difference, vertical_difference));
 				p.normal_vector.x = normal_vector.x;
 				p.normal_vector.y = normal_vector.y;
 				p.normal_vector.z = normal_vector.z;
-
+				//Normal vector color
+				p.normal_color.red = ((p.normal_vector.x + 1.0f) / 2.0f);
+				p.normal_color.green = ((p.normal_vector.y + 1.0f) / 2.0f);
+				p.normal_color.blue = ((p.normal_vector.z + 1.0f) / 2.0f);
 				if (p.distance_from_origin > 0.0f){
 					this->points.push_back(p);
 					number_of_elements_pushed++;
@@ -108,6 +107,7 @@ Render PointCloud::get_rendering_structures(){
 	Render rs;
 	rs.vertices = new GLfloat[this->points.size() * 3];
 	rs.colors = new GLfloat[this->points.size() * 3];
+	rs.normal_colors = new GLfloat[this->points.size() * 3];
 	int t = 0;
 	for (int j = 0; j < this->points.size(); j++)
 	{
@@ -118,6 +118,9 @@ Render PointCloud::get_rendering_structures(){
 		rs.colors[t] = p.color.blue;
 		rs.colors[t + 1] = p.color.green;
 		rs.colors[t + 2] = p.color.red;
+		rs.normal_colors[t] = p.normal_color.blue;
+		rs.normal_colors[t + 1] = p.normal_color.green;
+		rs.normal_colors[t + 2] = p.normal_color.red;
 		t = t + 3;
 	}
 	return rs;
@@ -154,7 +157,6 @@ void PointCloud::transform(PointCloud mo, Transformation trans){
 	translation.val[0][0] = (float)trans.t.val[0][0];
 	translation.val[1][0] = (float)trans.t.val[0][1];
 	translation.val[2][0] = (float)trans.t.val[0][2];
-
 	Matrix rot_mat(3, 3);
 	rot_mat.val[0][0] = trans.R.val[0][0];
 	rot_mat.val[0][1] = trans.R.val[1][0];
@@ -165,7 +167,6 @@ void PointCloud::transform(PointCloud mo, Transformation trans){
 	rot_mat.val[2][0] = trans.R.val[0][2];
 	rot_mat.val[2][1] = trans.R.val[1][2];
 	rot_mat.val[2][2] = trans.R.val[2][2];
-
 	for (int i = 0; i < mo.points.size(); i++){
 		Point p;
 		Matrix v(3, 1);
@@ -195,11 +196,12 @@ void PointCloud::transform(PointCloud mo, Transformation trans){
 
 Transformation PointCloud::align_point_cloud(CmDevice* cm_device, CmProgram* program, PointCloud mod, int number_of_points, Matrix *R, Matrix *t){
 	PointCloud current(this->points);
-	
-
 	Transformation f;
 	f.R = *R;
 	f.t = *t;
-
 	return f;
+}
+
+void PointCloud::terminate(){
+	this->~PointCloud();
 }
