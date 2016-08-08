@@ -1,15 +1,20 @@
 #ifndef POINT_CLOUD_H
 #define POINT_CLOUD_H 1
 
+#include <memory>
+#include <vector>
+#include <iostream>
+#include <vector>
+
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
 #undef APIENTRY
+
+#include <pxcsensemanager.h>
 
 #include "Matrix.h"
 #include "CmUtils.h"
-#include <pxcsensemanager.h>
-
-
 
 using namespace std;
 
@@ -58,11 +63,12 @@ public:
 	static PointCloud transform_glm(PointCloud mo, Transformation trans);
 	Render get_rendering_structures();
 	Transformation align_point_cloud(CmDevice* cm_device, CmProgram* program, PointCloud mod, int number_of_points, Matrix *R, Matrix *t);
-	void terminate();
+	void terminate(Render rs);
 
 public:
 
 	std::vector<Point> points;
+	PXCScenePerception * scene_perception;
 };
 
 struct GlobalMap{

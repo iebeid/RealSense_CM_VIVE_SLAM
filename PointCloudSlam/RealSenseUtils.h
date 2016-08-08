@@ -2,12 +2,9 @@
 #define REAL_SENSE_UTILS 1
 
 #include <pxcsensemanager.h>
-
+#include <util_render.h>
 #include <iostream>
-
 #include <cm_rt.h>
-
-using namespace std;
 
 PXCCapture::Device* real_sense_info(PXCCaptureManager *pCaptureManager);
 

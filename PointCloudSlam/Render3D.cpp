@@ -11,6 +11,8 @@ float trans_y = 0.0f;
 float angle_y = 180.0f;
 float angle_x = 0.0f;
 
+
+
 struct line_vertex
 {
 	unsigned char r, g, b, a;
@@ -60,6 +62,7 @@ GLFWwindow* initWindow(const int width, const int height, int pos_x, int pos_y, 
 	glDepthFunc(GL_LEQUAL);
 	glDisable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
+
 	return window;
 }
 

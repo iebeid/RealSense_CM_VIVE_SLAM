@@ -1,6 +1,7 @@
 #include "CmUtils.h"
-
 #include "RealSenseUtils.h"
+
+using namespace std;
 
 PXCCapture::Device* real_sense_info(PXCCaptureManager *pCaptureManager){
 	//Info
@@ -33,7 +34,6 @@ PXCCapture::Device* real_sense_info(PXCCaptureManager *pCaptureManager){
 PXCSenseManager* init_real_sense(int width, int height, PXCProjection** projection, PXCCapture::Device** device, PXCSession** session, PXCScenePerception** scene_perception){
 	//Camera initialization
 	PXCSession* current_session = PXCSession::CreateInstance();
-	//current_session->SetCoordinateSystem(PXCSession::CoordinateSystem::COORDINATE_SYSTEM_REAR_OPENCV);
 	PXCSenseManager *sense_manager = current_session->CreateSenseManager();
 	sense_manager->EnableStream(PXCCapture::STREAM_TYPE_COLOR, width, height, 60);
 	sense_manager->EnableStream(PXCCapture::STREAM_TYPE_DEPTH, width, height, 60);
@@ -140,91 +140,3 @@ PXCImage * map_color_to_depth(PXCImage * depth, PXCImage * color, PXCSession *pS
 	mapped_image->ReleaseAccess(&data);
 	return mapped_image;
 }
-
-////bool CovertRGBtoYUV(unsigned char* pbyData_i, int nWidth_i, int nHeight_i, const char * csChromaSampling_i)
-////{
-////
-////	unsigned char* m_pbyYdata = 0;
-////	unsigned char* m_pbyCbData = 0;
-////	unsigned char* m_pbyCrData = 0;
-////	unsigned char* m_pbyCrDataOut = 0;
-////	unsigned char* m_pbyCbDataOut = 0;
-////	unsigned char* m_pbyRGBOut = 0;
-////
-////	int m_nWidth;
-////	int m_nHeight;
-////	int m_nWidthCbCr;
-////	int m_nHeightCbCr;
-////	int m_nChromaV;
-////	int m_nChromaH;
-////
-////	double dconversionmatrix[3][3] = { 0.299, 0.587, 0.114, /* Y */
-////		-0.14317, -0.28886, 0.436, /* Cr */
-////		0.615, -0.51499, -0.10001 }; /* Cb */
-////
-////	if (0 == pbyData_i)
-////	{
-////		return false;
-////	}
-////
-////	m_nWidth = nWidth_i;
-////	m_nHeight = nHeight_i;
-////
-////
-////
-////		m_nChromaV = 2;
-////		m_nChromaH = 2;
-////
-////
-////	m_nWidthCbCr = m_nWidth * (m_nChromaH / 4);
-////	m_nHeightCbCr = m_nHeight * (m_nChromaV / 4);
-////
-////	delete[] m_pbyYdata;
-////	delete[] m_pbyCbData;
-////	delete[] m_pbyCrData;
-////
-////	m_pbyYdata = new unsigned char [m_nWidth*m_nWidth * 3];
-////	m_pbyCbData = new unsigned char [m_nWidth*m_nWidth * 3];
-////	m_pbyCrData = new unsigned char [m_nWidth*m_nWidth * 3];
-////
-////	int nYoutPos = 0;
-////	for (int nCol = 0; nCol < m_nHeight; nCol++)
-////	{
-////		for (int nWid = 0; nWid < (m_nWidth * 3); nWid += 3)
-////		{
-////			int nR = pbyData_i[(nCol * m_nWidth * 3) + nWid + 2];
-////			int nG = pbyData_i[(nCol * m_nWidth * 3) + nWid + 1];
-////			int nB = pbyData_i[(nCol * m_nWidth * 3) + nWid];
-////
-////			// ITU-R version formula
-////			m_pbyYdata[nYoutPos] = (unsigned char)dconversionmatrix[0][0] * nR
-////				+ (unsigned char)dconversionmatrix[0][1] * nG
-////				+ (unsigned char)dconversionmatrix[0][2] * nB; // B
-////
-////			m_pbyCbData[nYoutPos] = (unsigned char)dconversionmatrix[1][0] * nR
-////				+ (unsigned char)dconversionmatrix[1][1] * nG
-////				+ (unsigned char)dconversionmatrix[1][2] * nB + 128;
-////
-////			m_pbyCrData[nYoutPos] = (unsigned char)dconversionmatrix[2][0] * nR
-////				+ (unsigned char)dconversionmatrix[2][1] * nG
-////				+ (unsigned char)dconversionmatrix[2][2] * nB + 128;
-////
-////
-////			nYoutPos++;
-////
-////			m_pbyYdata[nYoutPos] = m_pbyYdata[nYoutPos - 1]; //G
-////			m_pbyCbData[nYoutPos] = m_pbyCbData[nYoutPos - 1];
-////			m_pbyCrData[nYoutPos] = m_pbyCrData[nYoutPos - 1];
-////
-////			nYoutPos++;
-////
-////			m_pbyYdata[nYoutPos] = m_pbyYdata[nYoutPos - 1]; // R
-////			m_pbyCbData[nYoutPos] = m_pbyCbData[nYoutPos - 1];
-////			m_pbyCrData[nYoutPos] = m_pbyCrData[nYoutPos - 1];
-////
-////			nYoutPos++;
-////
-////		}
-////	}
-////	return true;
-////}
