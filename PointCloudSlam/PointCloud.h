@@ -1,11 +1,6 @@
 #ifndef POINT_CLOUD_H
 #define POINT_CLOUD_H 1
 
-#include <memory>
-#include <vector>
-#include <iostream>
-#include <vector>
-
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>

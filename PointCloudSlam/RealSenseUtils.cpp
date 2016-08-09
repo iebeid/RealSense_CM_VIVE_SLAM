@@ -1,6 +1,6 @@
 #include "CmUtils.h"
 #include "RealSenseUtils.h"
-
+#include <util_render.h>
 using namespace std;
 
 PXCCapture::Device* real_sense_info(PXCCaptureManager *pCaptureManager){

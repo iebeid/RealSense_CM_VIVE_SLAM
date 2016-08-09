@@ -1,9 +1,6 @@
 #ifndef APP_H
 #define APP_H 1
-#include <pxcsensemanager.h>
-#include <pxcsceneperception.h>
-#include <cm_rt.h>
-#include <thread>
+//Main app class singltone style
 class App{
 public:
 	static App& getInstance()
@@ -11,9 +8,9 @@ public:
 		static App instance;
 		return instance;
 	}
-	
+	//App entry point
 	void run();
-
+	//App terminate
 	void terminate();
 
 private:

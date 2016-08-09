@@ -129,7 +129,7 @@
 SET ICLDIR=%INSTALLDIR%\compiler
 SET PATH=%ICLDIR%\bin;%ICLDIR%\lib;%PATH%
 SET INCLUDE=%ICLDIR%\include;%INCLUDE%
-%ICLDIR%\bin\icl.exe /c /Qxcm  /Qxcm_jit_target=gen9  slam_genx.cpp /mCM_emit_common_isa</Command>
+%ICLDIR%\bin\icl.exe /c /Qxcm  /Qxcm_jit_target=gen9  slam_genx.cpp /mCM_emit_common_isa /Qxcm_noschedule</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -139,12 +139,14 @@ SET INCLUDE=%ICLDIR%\include;%INCLUDE%
     <ClCompile Include="FPS.cpp" />
     <ClCompile Include="Kdtree.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MathUtils.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="PointCloud.cpp" />
     <ClCompile Include="Queue.cpp" />
     <ClCompile Include="RealSenseUtils.cpp" />
     <ClCompile Include="Render2D.cpp" />
     <ClCompile Include="Render3D.cpp" />
+    <ClCompile Include="VRPNTracker.cpp" />
     <None Include="slam_genx.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </None>
@@ -156,6 +158,7 @@ SET INCLUDE=%ICLDIR%\include;%INCLUDE%
     <ClInclude Include="FPS.h" />
     <ClInclude Include="ICP.hpp" />
     <ClInclude Include="Kdtree.h" />
+    <ClInclude Include="MathUtils.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="PointCloud.h" />
     <ClInclude Include="Queue.h" />

@@ -2,8 +2,7 @@
 #define FPS_H 1
 
 #include <ctime>
-#include <iostream>
-
+// Frame Counter Class
 class FPS{
 public:
 	FPS();
@@ -13,9 +12,11 @@ public:
 	void print_fps();
 
 private:
+	//Frame counter
 	int frames;
 	float starttime;
 	bool first;
+	//Number of frame per seconds
 	float nof;
 	std::clock_t start;
 	float timepassed;

@@ -1,20 +1,12 @@
 #ifndef __KDTREE_HPP
 #define __KDTREE_HPP
 
-// (c) Matthew B. Kennel, Institute for Nonlinear Science, UCSD (2004)
-//
-// Licensed under the Academic Free License version 1.1 found in file LICENSE
-// with additional provisions in that same file.
-//
-// Implement a kd tree for fast searching of points in a fixed data base
-// in k-dimensional Euclidean space.
-
 #include <vector>
 #include <algorithm>
 
 #include <boost/multi_array.hpp>
 #include <boost/array.hpp>
-
+//kdtree class used in libicp to construct a kdtree out of the point cloud to speedup and optimize neighborhood search
 namespace kdtree {
 
 	typedef boost::multi_array<float, 2>           KDTreeArray;

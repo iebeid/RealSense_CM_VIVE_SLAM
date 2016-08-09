@@ -1,6 +1,11 @@
 
 #include "PointCloud.h"
 
+#include <memory>
+#include <vector>
+#include <iostream>
+#include <vector>
+
 PointCloud::~PointCloud(){
 	points.clear();
 	points.shrink_to_fit();
