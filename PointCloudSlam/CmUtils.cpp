@@ -1,9 +1,10 @@
 #include "CmUtils.h"
-
+#include <iostream>
 CmDevice* create_device() {
 	CmDevice* pCmDev = NULL;
 	UINT version = 0;
 	int result = ::CreateCmDevice(pCmDev, version);
+	if (result != CM_SUCCESS) std::cout << "Cannot create device" << std::endl;
 	return pCmDev;
 }
 
