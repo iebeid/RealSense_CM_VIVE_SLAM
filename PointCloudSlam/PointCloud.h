@@ -63,7 +63,7 @@ public:
 public:
 
 	std::vector<Point> points;
-	PXCScenePerception * scene_perception;
+	PXCScenePerception * s;
 };
 
 struct GlobalMap{

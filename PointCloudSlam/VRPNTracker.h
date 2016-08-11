@@ -16,6 +16,7 @@ public:
 
 protected:
 	struct timeval _timestamp;
+public:
 	float x, y, z, qx, qy, qz, qw;
 };
 #endif

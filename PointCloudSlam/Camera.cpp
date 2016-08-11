@@ -1,11 +1,6 @@
+
 #include "Camera.h"
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <vector>
-#include <pxcsensemanager.h>
-#include "Camera.h"
-using namespace std;
+
 
 void Camera::set_rotation(float * rotation){
 	this->rotation = rotation;
